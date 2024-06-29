@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Praktika2024.CommandLineConfig" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="1.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACCAAAAAAAAIIAAAAAAAAAAAAIAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>CommandLineConfig.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Praktika2024.ConsoleResultOutput" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="3.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAQAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ConsoleResultOutput.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Praktika2024.DocumentAnalyzer" Collapsed="true">
+    <Position X="5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAIAAAAAAAAAAAAACAIAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DocumentAnalyzer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Praktika2024.DrawingAnalyzer" Collapsed="true">
+    <Position X="1.5" Y="2.25" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Praktika2024.DrawingAnalyzer.Placement" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DrawingAnalyzer.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAgAgAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>DrawingAnalyzer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Praktika2024.FileConfig" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="3.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACCAAAAAAAAIIAAAAAAAAAAAAIAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>FileConfig.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Praktika2024.FileResultOutput" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAQAAABAAAAAEAAAAAACAA=</HashCode>
+      <FileName>FileResultOutput.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Praktika2024.PdfDocument" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="1.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEQAAAAAAAAAAIAAAAQEAIAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>PdfDocument.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="Praktika2024.IConfig" Collapsed="true">
+    <Position X="1.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAIAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IConfig.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Praktika2024.IDocument" Collapsed="true">
+    <Position X="3.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAQEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IDocument.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Praktika2024.IResultOutput" Collapsed="true">
+    <Position X="5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAQAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IResultOutput.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="10" />
+</ClassDiagram>
