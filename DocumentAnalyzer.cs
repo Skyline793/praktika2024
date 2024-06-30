@@ -11,21 +11,25 @@ namespace Praktika2024
         /// Документ
         /// </summary>
         private IDocument document;
+        public IDocument Document { get { return document; } set { document = value; } }
 
         /// <summary>
         /// Аналмзатор чертежей
         /// </summary>
         private DrawingAnalyzer analyzer;
+        public DrawingAnalyzer Analyzer { get { return analyzer; } set { analyzer = value; } }
 
         /// <summary>
         /// Конфиг программы
         /// </summary>
         private IConfig config;
+        public IConfig Config { get { return config; } set { config = value; } }
 
         /// <summary>
         /// Вывод результатов анализа
         /// </summary>
         private IResultOutput output;
+        public IResultOutput Output { get { return output; } set { output = value; } }
 
         /// <summary>
         /// Конструктор
@@ -55,8 +59,9 @@ namespace Praktika2024
                 Size size = analyzer.GetDrawingSize(drawing);
                 double fillPercentage = analyzer.CalculateFillPercentage(drawing);
                 DrawingAnalyzer.Placement placement = analyzer.IsDrawingFits(drawing, config.GetSheetSize(), config.GetPrinterDpi());
-                output.OutputDrawingInfo(i+1, size, fillPercentage, placement);
+                output.OutputDrawingInfo(i + 1, size, fillPercentage, placement);
             }
         }
+
     }
 }

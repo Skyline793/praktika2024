@@ -17,6 +17,8 @@ class Program
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                Console.WriteLine("Нажмите любую клавишу для выхода.");
+                Console.Read();
                 return;
             }
         }
@@ -29,6 +31,8 @@ class Program
             catch(Exception e)
             {
                 Console.WriteLine (e.Message);
+                Console.WriteLine("Нажмите любую клавишу для выхода.");
+                Console.Read();
                 return;
             }
         }
@@ -47,10 +51,15 @@ class Program
             Console.WriteLine(e.Message);
             return;
         }
-        IResultOutput output = new ConsoleResultOutput();
+        IResultOutput consoleOutput = new ConsoleResultOutput();
         DrawingAnalyzer drawingAnalyzer = new DrawingAnalyzer();
-        DocumentAnalyzer documentAnalyzer = new DocumentAnalyzer(doc, drawingAnalyzer, reader, output);
+        DocumentAnalyzer documentAnalyzer = new DocumentAnalyzer(doc, drawingAnalyzer, reader, consoleOutput);
         documentAnalyzer.Analyze();
+        IResultOutput fileOutput = new FileResultOutput();
+        documentAnalyzer.Output = fileOutput;
+        documentAnalyzer.Analyze();
+        Console.WriteLine("Работа программы завершена. Нажмите любую клавишу для выхода.");
+        Console.Read();
     }
 }
 
