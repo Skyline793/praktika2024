@@ -18,9 +18,14 @@ namespace Praktika2024
         private SizeF sheetSize;
 
         /// <summary>
-        /// dpi принтера
+        /// исходный dpi
         /// </summary>
         private int dpi;
+
+        /// <summary>
+        /// Имя принтера для печати
+        /// </summary>
+        private string printerName;
 
         /// <summary>
         /// конструктор
@@ -29,8 +34,11 @@ namespace Praktika2024
         public CommandLineConfig(string[] args)
         {
             documentName = args[0];
-            sheetSize = new SizeF { Width = (float)Convert.ToDouble(args[1]), Height = (float)Convert.ToDouble(args[2]) };
+            sheetSize = new SizeF { Width = float.Parse(args[1]), Height = float.Parse(args[2]) };
+            if (sheetSize.Height == 0)
+                sheetSize.Height = int.MaxValue;
             dpi = Convert.ToInt32(args[3]);
+            printerName = args[4];
         }
 
         /// <summary>
@@ -52,12 +60,21 @@ namespace Praktika2024
         }
 
         /// <summary>
-        /// Возвращает dpi принтера
+        /// Возвращает исходный dpi
         /// </summary>
-        /// <returns>dpi принтера</returns>
-        public int GetPrinterDpi()
+        /// <returns>исходный dpi</returns>
+        public int GetDpi()
         {
             return dpi;
+        }
+
+        /// <summary>
+        /// Возвращает имя принтера для печати
+        /// </summary>
+        /// <returns>имя принтера</returns>
+        public string GetPrinterName()
+        {
+            return printerName;
         }
     }
 }

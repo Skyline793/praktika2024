@@ -20,9 +20,15 @@ namespace Praktika2024
         public abstract SizeF GetSheetSize();
 
         /// <summary>
-        /// Возвращает dpi принтера
+        /// Возвращает исходный dpi
         /// </summary>
-        /// <returns>dpi принтера</returns>
-        public abstract int GetPrinterDpi();
+        /// <returns>исходный dpi</returns>
+        public abstract int GetDpi();
+
+        /// <summary>
+        /// Возвращает имя принтера для печати
+        /// </summary>
+        /// <returns>имя принтера</returns>
+        public abstract string GetPrinterName();
     }
 }

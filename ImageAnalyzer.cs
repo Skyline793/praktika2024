@@ -5,7 +5,7 @@ namespace Praktika2024
     /// <summary>
     /// Анализатор чертежей
     /// </summary>
-    internal class DrawingAnalyzer
+    internal class ImageAnalyzer
     {
         public enum Placement
         {
@@ -15,20 +15,32 @@ namespace Praktika2024
         }
 
         /// <summary>
-        /// Возвращает размеры чертежа
+        /// Возвращает размеры изображения в точках
         /// </summary>
-        /// <param name="bitmap">битмап с чертежом</param>
-        /// <returns>размеры чертежа в точках</returns>
-        public Size GetDrawingSize(Bitmap bitmap)
+        /// <param name="bitmap">битмап с изображением</param>
+        /// <returns>размеры изображения в точках</returns>
+        public Size GetImagePixelSize(Bitmap bitmap)
         {
             Size size = new Size(bitmap.Width, bitmap.Height);
             return size;
         }
 
         /// <summary>
-        /// Вычисляет процент заполнения чертежа
+        /// Возвращает размеры изображения в мм
         /// </summary>
-        /// <param name="bitmap">битмап с чертежом</param>
+        /// <param name="bitmap">битмап</param>
+        /// <param name="dpi">разрешение</param>
+        /// <returns>размеры в миллиметрах</returns>
+        public SizeF GetImageMmSize(Bitmap bitmap, int dpi)
+        {
+            SizeF mmSize = new SizeF(ConvertPixelsToMm(bitmap.Width, dpi), ConvertPixelsToMm(bitmap.Height, dpi));
+            return mmSize;
+        }
+
+        /// <summary>
+        /// Вычисляет процент заполнения изображения
+        /// </summary>
+        /// <param name="bitmap">битмап с изображением</param>
         /// <returns>процент заполнения</returns>
         public double CalculateFillPercentage(Bitmap bitmap)
         {
@@ -40,8 +52,7 @@ namespace Praktika2024
                 for (int x = 0; x < bitmap.Width; x++)
                 {
                     Color pixelColor = bitmap.GetPixel(x, y);
-                    // Если пиксель не белый
-                    if (pixelColor.ToArgb() != System.Drawing.Color.White.ToArgb())
+                    if (pixelColor.ToArgb() != Color.White.ToArgb())
                         nonWhitePixelCount++;
                 }
             }
@@ -49,13 +60,13 @@ namespace Praktika2024
         }
 
         /// <summary>
-        /// Проверяет, можно ли разместить чертеж на листе
+        /// Проверяет, можно ли разместить изображение на листе
         /// </summary>
-        /// <param name="bitmap">битмап с чертежом</param>
+        /// <param name="bitmap">битмап с изображением</param>
         /// <param name="mmSheetSize">размеры листа принтера в мм</param>
-        /// <param name="dpi">dpi принтера</param>
+        /// <param name="dpi">исходное разрешение</param>
         /// <returns>true - можно, false - нельзя</returns>
-        public Placement IsDrawingFits(Bitmap bitmap, SizeF mmSheetSize, int dpi)
+        public Placement IsImageFits(Bitmap bitmap, SizeF mmSheetSize, int dpi)
         {
             SizeF mmDrawingSize = new SizeF();
             mmDrawingSize.Width = ConvertPixelsToMm(bitmap.Width, dpi);
@@ -70,8 +81,8 @@ namespace Praktika2024
         /// <summary>
         /// Конвертирует размер в пикселях в размер в мм
         /// </summary>
-        /// <param name="pixelSize">размер в пикселях</param>
-        /// <param name="dpi">dpi принтера</param>
+        /// <param name="pointSize">размер в пикселях</param>
+        /// <param name="dpi">разрешение</param>
         /// <returns></returns>
         private float ConvertPixelsToMm(int pixelSize, int dpi)
         {

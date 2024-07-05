@@ -14,11 +14,12 @@ namespace Praktika2024
         public abstract void OutputDocumentTitle(string title);
 
         /// <summary>
-        /// Выводит параметры принтера
+        /// Выводит входные параметры
         /// </summary>
         /// <param name="sheetSize">размеры листа</param>
-        /// <param name="dpi">DPI принтера</param>
-        public abstract void OutputPrinterInfo(SizeF sheetSize, int dpi);
+        /// <param name="dpi">исходный DPI</param>
+        /// <param name="printerName">имя принтера</param>
+        public abstract void OutputSourceInfo(SizeF sheetSize, int dpi, string printerName);
 
         /// <summary>
         /// Выводит информацию о чертеже
@@ -27,6 +28,13 @@ namespace Praktika2024
         /// <param name="drawingSize">размеры чертежа</param>
         /// <param name="fillPercentage">процент заполнения</param>
         /// <param name="fits">флаг, указывающий, помещается ли чертеж на лист</param>
-        public abstract void OutputDrawingInfo(int pageNum, Size drawingSize, double fillPercentage, DrawingAnalyzer.Placement placement);
+        public abstract void OutputDrawingInfo(int pageNum, SizeF drawingSize, double fillPercentage, ImageAnalyzer.Placement placement);
+
+        /// <summary>
+        /// Выводит информацию о том, возможно ли распечатать документ
+        /// </summary>
+        /// <param name="printable">флаг возможности печати</param>
+        /// <param name="printedFileName">имя оптимизированного файла для печати</param>
+        public abstract void OutputPrintable(bool printable, string printedFileName);
     }
 }

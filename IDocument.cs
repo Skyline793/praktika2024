@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using BitMiracle.Docotic.Pdf;
+using System.Drawing;
 
 namespace Praktika2024
 {
@@ -25,5 +26,17 @@ namespace Praktika2024
         /// </summary>
         /// <returns>название документа</returns>
         public abstract string GetTitle();
+
+        /// <summary>
+        /// Обрезает страницу документа по фактическим границам изображения на ней
+        /// </summary>
+        /// <param name="pageIndex">номер страницы</param>
+        public abstract void CropPdfPage(int pageIndex);
+
+        /// <summary>
+        /// Сохраняет документ
+        /// </summary>
+        /// <param name="fileName">имя файла</param>
+        public abstract void SaveDocument(string fileName);
     }
 }

@@ -18,6 +18,7 @@ namespace Praktika2024
         /// имя файла
         /// </summary>
         private string fileName;
+        public string FileName { get { return fileName; } }
 
         /// <summary>
         /// конструктор
@@ -34,7 +35,7 @@ namespace Praktika2024
         /// </summary>
         /// <returns>число страниц</returns>
         public int GetPageCount()
-        { 
+        {
             return doc.PageCount;
         }
 
@@ -51,7 +52,26 @@ namespace Praktika2024
         /// </summary>
         /// <param name="pageIndex">номер страницы</param>
         /// <returns>битмап с изображением</returns>
-        public Bitmap GetDrawingBitmap(int pageIndex) {
+        public Bitmap GetDrawingBitmap(int pageIndex)
+        {
+            PdfPage page = doc.GetPage(pageIndex);
+            PdfDrawOptions options = PdfDrawOptions.CreateFitSize(new PdfSize(page.Width, page.Height), true);
+            options.BackgroundColor = new PdfRgbColor(255, 255, 255);
+            Bitmap drawingBitmap = null;
+            using (var memoryStream = new MemoryStream())
+            {
+                page.Save(memoryStream, options);
+                drawingBitmap = new Bitmap(memoryStream);
+            }
+            return drawingBitmap;
+        }
+
+        /// <summary>
+        /// Обрезает страницу документа по фактическим границам изображения на ней
+        /// </summary>
+        /// <param name="pageIndex">номер страницы</param>
+        public void CropPdfPage(int pageIndex)
+        {
             PdfPage page = doc.GetPage(pageIndex);
             PdfDrawOptions options = PdfDrawOptions.CreateFitSize(new PdfSize(page.Width, page.Height), true);
             options.BackgroundColor = new PdfRgbColor(255, 255, 255);
@@ -61,22 +81,34 @@ namespace Praktika2024
                 page.Save(memoryStream, options);
                 fullPageBitmap = new Bitmap(memoryStream);
             }
-            Rectangle drawingBounds = GetDrawingBounds(fullPageBitmap);
-            // Обрезаем изображение по найденным границам
-            Bitmap drawingBitmap = CropBitmap(fullPageBitmap, drawingBounds);
-            return drawingBitmap;
+            Rectangle bounds = GetDrawingBounds(fullPageBitmap);
+            var box = new PdfBox(bounds.Left, page.Height - bounds.Bottom, bounds.Left + bounds.Width, page.Height - bounds.Bottom + bounds.Height);
+            page.CropBox = box;
+            page.MediaBox = box;
+            page.TrimBox = box;
+            page.BleedBox = box;
+            page.ArtBox = box;
         }
 
         /// <summary>
-        /// Определяет границы изображения на странице документа
+        /// Сохраняет документ
         /// </summary>
-        /// <param name="bitmap">битмап страницы документа</param>
-        /// <returns>область, определяющая границы чертежа</returns>
-        private Rectangle GetDrawingBounds(Bitmap bitmap)
+        /// <param name="fileName">имя файла</param>
+        public void SaveDocument(string fileName)
+        {
+            doc.Save(fileName);
+        }
+
+    /// <summary>
+    /// Определяет границы изображения на странице документа
+    /// </summary>
+    /// <param name="bitmap">битмап страницы документа</param>
+    /// <returns>область, определяющая границы чертежа</returns>
+    private Rectangle GetDrawingBounds(Bitmap bitmap)
         {
             int left = -1, right = -1, top = -1, bottom = -1;
             for (int x = 0; x < bitmap.Width; x++)
-                {
+            {
                 for (int y = 0; y < bitmap.Height; y++)
                 {
                     Color pixelColor = bitmap.GetPixel(x, y);
@@ -89,7 +121,7 @@ namespace Praktika2024
                 if (left >= 0)
                     break;
             }
-            for (int x = bitmap.Width - 1; x >=0; x--)
+            for (int x = bitmap.Width - 1; x >= 0; x--)
             {
                 for (int y = 0; y < bitmap.Height; y++)
                 {
@@ -117,7 +149,7 @@ namespace Praktika2024
                 if (top >= 0)
                     break;
             }
-            for (int y = bitmap.Height - 1; y >=0; y--)
+            for (int y = bitmap.Height - 1; y >= 0; y--)
             {
                 for (int x = bitmap.Width - 1; x >= 0; x--)
                 {
@@ -133,22 +165,6 @@ namespace Praktika2024
             }
             // Возвращаем прямоугольник с границами чертежа
             return Rectangle.FromLTRB(left, top, right, bottom);
-        }
-
-        /// <summary>
-        /// Обрезает битмап по заданным границам
-        /// </summary>
-        /// <param name="bitmap">обрезаемый битмап</param>
-        /// <param name="cropArea">область обрезки</param>
-        /// <returns>обрезанный битмап</returns>
-        private Bitmap CropBitmap(Bitmap bitmap, System.Drawing.Rectangle cropArea)
-        {
-            Bitmap croppedBitmap = new Bitmap(cropArea.Width, cropArea.Height);
-            using (Graphics g = Graphics.FromImage(croppedBitmap))
-            {
-                g.DrawImage(bitmap, new System.Drawing.Rectangle(0, 0, cropArea.Width, cropArea.Height), cropArea, GraphicsUnit.Pixel);
-            }
-            return croppedBitmap;
         }
     }
 }
